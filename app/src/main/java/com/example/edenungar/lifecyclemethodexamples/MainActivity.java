@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    //references buttons located in xml associated with this activity
     private Button newActivityButton;
     private Button finishProgramButton;
 
@@ -19,24 +20,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Toast creates small pop-up at the bottom of the screen
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
 
+        //links the variable reference to a specific ui element by id (name)
         newActivityButton = findViewById(R.id.new_activity_button);
         finishProgramButton = findViewById(R.id.finish_activity_button);
 
+        //setting intent to navigate from this activity to a different one
         newActivity = new Intent(this, SecondActivity.class);
 
+        //method to initiate onClick listeners for the buttons in the ui
         setListeners();
     }
 
     private void setListeners() {
+        //sets listener for newActivityButton
         newActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //takes our intent and tells it to use that to start a new Activity
                 startActivity(newActivity);
             }
         });
+
+        //sets listener for finishProgramButton
+        finishProgramButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //closes current activity (in this location, this call will close our program)
+                finish();
+            }
+        });
+
     }
+
+    //life cycle methods below
 
     @Override
     protected void onStart() {
